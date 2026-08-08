@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced AI Features Test - Route Rover</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4CAF50;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .status.working { background: #4CAF50; }
+        .status.enhanced { background: #2196F3; }
+        .status.new { background: #FF9800; }
+        .btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .voice-demo {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .notification-demo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Enhanced AI Features Test - Route Rover</h1>
+        <p>Testing the new voice-enabled AI assistant with popup notifications and comprehensive chat interface.</p>
+
+        <div class="test-section">
+            <h2>🎯 New AI Features Overview</h2>
+            <div class="feature-list">
+                <div class="feature-card">
+                    <h3>🎤 Voice Recognition</h3>
+                    <span class="status new">NEW</span>
+                    <p>• Speech-to-text input for train queries</p>
+                    <p>• Natural language processing</p>
+                    <p>• Auto-detection of train numbers</p>
+                    <p>• Voice-activated chat interface</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🔊 Text-to-Speech</h3>
+                    <span class="status new">NEW</span>
+                    <p>• AI responses spoken aloud</p>
+                    <p>• Adjustable speech rate and pitch</p>
+                    <p>• Voice feedback for train information</p>
+                    <p>• Hands-free interaction support</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🚨 Popup Notifications</h3>
+                    <span class="status new">NEW</span>
+                    <p>• Urgent travel alerts</p>
+                    <p>• Browser notifications</p>
+                    <p>• Auto-hide after 10 seconds</p>
+                    <p>• Priority-based notification system</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>💬 Enhanced Chat Interface</h3>
+                    <span class="status enhanced">ENHANCED</span>
+                    <p>• Real-time AI conversation</p>
+                    <p>• Quick action buttons</p>
+                    <p>• Voice message indicators</p>
+                    <p>• Contextual travel assistance</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 Feature Testing Guide</h2>
+            
+            <div class="voice-demo">
+                <h3>🎤 Voice Features Test</h3>
+                <p><strong>To test voice recognition:</strong></p>
+                <ol>
+                    <li>Click the "Voice Input" button in the AI Assistant header</li>
+                    <li>Say: "Check train 12307 status"</li>
+                    <li>The system should auto-detect the train number and fetch information</li>
+                    <li>Try: "Tell me about platform information"</li>
+                </ol>
+                
+                <p><strong>To test text-to-speech:</strong></p>
+                <ol>
+                    <li>Click "Voice Demo" button to hear AI introduction</li>
+                    <li>Send a chat message and listen for AI response</li>
+                    <li>Use voice input - responses will be spoken automatically</li>
+                </ol>
+            </div>
+            
+            <div class="voice-demo">
+                <h3>🚨 Popup Notifications Test</h3>
+                <p><strong>To test popup notifications:</strong></p>
+                <ol>
+                    <li>Enter train number 12307 and get AI guidance</li>
+                    <li>Wait 30 seconds for automatic notification check</li>
+                    <li>Urgent notifications will appear as popup in top-right corner</li>
+                    <li>Browser notifications will also appear (if permission granted)</li>
+                </ol>
+                <button class="btn" onclick="showDemoNotification()">🚨 Demo Popup Notification</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔗 Quick Access Links</h2>
+            <button class="btn" onclick="window.open('http://localhost:5174', '_blank')">🚀 Open Frontend (Port 5174)</button>
+            <button class="btn" onclick="window.open('http://localhost:5174/ai-assistant', '_blank')">🤖 Open AI Assistant</button>
+            <button class="btn" onclick="testBackendAPI()">🔧 Test Backend API</button>
+            <button class="btn" onclick="testVoiceSupport()">🎤 Test Voice Support</button>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Testing Checklist</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <label><input type="checkbox"> Voice recognition works</label>
+                <label><input type="checkbox"> Text-to-speech responds</label>
+                <label><input type="checkbox"> Popup notifications appear</label>
+                <label><input type="checkbox"> Chat interface functional</label>
+                <label><input type="checkbox"> Train number auto-detection</label>
+                <label><input type="checkbox"> Browser notifications</label>
+                <label><input type="checkbox"> Quick action buttons work</label>
+                <label><input type="checkbox"> Voice message indicators</label>
+                <label><input type="checkbox"> Auto-scroll in chat</label>
+                <label><input type="checkbox"> Notification permission request</label>
+                <label><input type="checkbox"> Voice controls in header</label>
+                <label><input type="checkbox"> Enhanced info banner</label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Sample Voice Commands</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                <div class="feature-card">
+                    <h4>Train Queries</h4>
+                    <p>"Check train 12307"</p>
+                    <p>"Train 12301 status"</p>
+                    <p>"Tell me about train delays"</p>
+                </div>
+                <div class="feature-card">
+                    <h4>General Questions</h4>
+                    <p>"Platform information"</p>
+                    <p>"Food options"</p>
+                    <p>"Weather updates"</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Travel Tips</h4>
+                    <p>"Travel tips"</p>
+                    <p>"Best seat selection"</p>
+                    <p>"Journey preparation"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="demoNotification" class="notification-demo">
+        <h4>🚨 Urgent Travel Alert</h4>
+        <p>Train 12307 - Possible 15 minute delay detected!</p>
+        <button onclick="hideDemoNotification()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Dismiss</button>
+    </div>
+
+    <script>
+        function showDemoNotification() {
+            document.getElementById('demoNotification').style.display = 'block';
+            setTimeout(() => {
+                hideDemoNotification();
+            }, 5000);
+        }
+
+        function hideDemoNotification() {
+            document.getElementById('demoNotification').style.display = 'none';
+        }
+
+        async function testBackendAPI() {
+            try {
+                const response = await fetch('http://localhost:5000/api/ai/location-guidance?trainNumber=12307');
+                const data = await response.json();
+                if (data.success) {
+                    alert('✅ Backend API working! AI guidance received for train 12307.');
+                } else {
+                    alert('❌ Backend API error: ' + data.message);
+                }
+            } catch (error) {
+                alert('❌ Backend connection failed: ' + error.message);
+            }
+        }
+
+        function testVoiceSupport() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                alert('✅ Voice recognition supported in this browser!');
+            } else {
+                alert('❌ Voice recognition not supported in this browser. Try Chrome or Edge.');
+            }
+
+            if ('speechSynthesis' in window) {
+                alert('✅ Text-to-speech supported in this browser!');
+                // Demo TTS
+                const utterance = new SpeechSynthesisUtterance('Voice features are working correctly!');
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('❌ Text-to-speech not supported in this browser.');
+            }
+        }
+
+        // Auto-test on page load
+        window.onload = function() {
+            console.log('🤖 Enhanced AI Features Test Page Loaded');
+            console.log('Frontend: http://localhost:5174');
+            console.log('Backend: http://localhost:5000');
+            console.log('AI Assistant: http://localhost:5174/ai-assistant');
+        };
+    </script>
+</body>
+</html>

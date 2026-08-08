@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Layout Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .success { background: rgba(46, 204, 113, 0.3); }
+        .info { background: rgba(52, 152, 219, 0.3); }
+        .button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Dashboard Layout Test</h1>
+        <p>Testing the fixed dashboard sidebar layout and logout button positioning.</p>
+
+        <div class="test-item success">
+            <h3>✅ Layout Fixes Applied</h3>
+            <ul>
+                <li><strong>Sidebar Structure:</strong> Changed to flexbox layout</li>
+                <li><strong>Navigation:</strong> Proper flex-1 for main nav items</li>
+                <li><strong>Logout Button:</strong> Moved to mt-auto (bottom)</li>
+                <li><strong>Width Constraints:</strong> Added proper width management</li>
+                <li><strong>Text Truncation:</strong> Added truncate for long text</li>
+            </ul>
+        </div>
+
+        <div class="test-item info">
+            <h3>🔧 Technical Changes Made</h3>
+            <ul>
+                <li><strong>Sidebar Container:</strong> Added <code>flex flex-col</code></li>
+                <li><strong>Navigation:</strong> Added <code>flex-1</code> to main nav</li>
+                <li><strong>Logout Container:</strong> Used <code>mt-auto pb-4</code></li>
+                <li><strong>NavItem Width:</strong> Added conditional width classes</li>
+                <li><strong>Icon Spacing:</strong> Added <code>flex-shrink-0</code></li>
+            </ul>
+        </div>
+
+        <div class="test-item">
+            <h3>🧪 How to Test</h3>
+            <ol>
+                <li>Open the dashboard in your browser</li>
+                <li>Login with test credentials</li>
+                <li>Check sidebar layout in both expanded and collapsed states</li>
+                <li>Verify logout button stays at bottom</li>
+                <li>Test responsive behavior</li>
+            </ol>
+        </div>
+
+        <div class="test-item">
+            <h3>📱 Expected Behavior</h3>
+            <ul>
+                <li><strong>Expanded Sidebar (w-64):</strong> Full text visible, logout at bottom</li>
+                <li><strong>Collapsed Sidebar (w-20):</strong> Icons only, logout icon at bottom</li>
+                <li><strong>Responsive:</strong> Proper spacing on all screen sizes</li>
+                <li><strong>No Overlap:</strong> Logout doesn't interfere with other elements</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="http://localhost:5173/dashboard" class="button">🚀 Test Dashboard</a>
+            <a href="http://localhost:5173/login" class="button">🔑 Login Page</a>
+        </div>
+
+        <div class="test-item success">
+            <h3>✅ Issue Resolution</h3>
+            <p><strong>Problem:</strong> Logout button was appearing in view details block with incorrect width</p>
+            <p><strong>Solution:</strong> Restructured sidebar with proper flexbox layout and width constraints</p>
+            <p><strong>Result:</strong> Clean, properly positioned logout button that doesn't interfere with content</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('Dashboard Layout Test Page Loaded');
+        console.log('✅ Sidebar layout fixes applied');
+        console.log('✅ Logout button positioning corrected');
+        console.log('✅ Width constraints implemented');
+        console.log('🚀 Ready for testing!');
+    </script>
+</body>
+</html>

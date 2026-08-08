@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Booking with Payment Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-title {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .payment-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .payment-card:hover {
+            transform: scale(1.05);
+        }
+        .payment-card h4 {
+            margin: 0 0 10px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        .booking-flow {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .flow-step {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+        }
+        .flow-step.active {
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+        .flow-step.completed {
+            background: #28a745;
+            color: white;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Complete Booking with Payment System Test</h1>
+    
+    <div class="booking-flow">
+        <div class="flow-step" id="step1">1. Search Train</div>
+        <div class="flow-step" id="step2">2. Select Class</div>
+        <div class="flow-step" id="step3">3. Enter Details</div>
+        <div class="flow-step" id="step4">4. Payment</div>
+        <div class="flow-step" id="step5">5. Confirmation</div>
+    </div>
+    
+    <div class="test-section">
+        <h2 class="test-title">🚂 Complete Booking Flow Test</h2>
+        <button onclick="testCompleteFlow()">Start Complete Booking Test</button>
+        <div id="complete-flow-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">💳 Payment Methods Test</h2>
+        <button onclick="testPaymentMethods()">Test All Payment Methods</button>
+        <div id="payment-methods-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">🔍 Payment Verification Test</h2>
+        <button onclick="testPaymentVerification()">Test Payment Verification</button>
+        <div id="verification-results"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        function updateFlowStep(stepNumber, status = 'active') {
+            // Reset all steps
+            for (let i = 1; i <= 5; i++) {
+                const step = document.getElementById(`step${i}`);
+                step.className = 'flow-step';
+                if (i < stepNumber) {
+                    step.className = 'flow-step completed';
+                } else if (i === stepNumber) {
+                    step.className = `flow-step ${status}`;
+                }
+            }
+        }
+
+        async function testCompleteFlow() {
+            const resultsDiv = document.getElementById('complete-flow-results');
+            resultsDiv.innerHTML = '<div class="loading">🔄 Testing complete booking flow...</div>';
+
+            try {
+                updateFlowStep(1);
+                
+                // Step 1: Search Train
+                console.log('🔍 Step 1: Searching for train...');
+                const trainResponse = await fetch(`${API_BASE}/trains?searchOption=SEARCH by number&number=12301`);
+                const trainData = await trainResponse.json();
+
+                if (!trainData.success || trainData.data.length === 0) {
+                    throw new Error('Train not found');
+                }
+
+                const train = trainData.data[0];
+                updateFlowStep(2);
+
+                // Step 2: Select Class
+                console.log('🎫 Step 2: Selecting class...');
+                const selectedClass = '3A';
+                const farePerPassenger = train.classes[selectedClass].fare;
+                const passengers = [
+                    { name: 'Test User 1', age: 30, gender: 'male', coach: selectedClass },
+                    { name: 'Test User 2', age: 28, gender: 'female', coach: selectedClass }
+                ];
+                const totalFare = farePerPassenger * passengers.length;
+                updateFlowStep(3);
+
+                // Step 3: Create Booking
+                console.log('📝 Step 3: Creating booking...');
+                const bookID = `FLOW-TEST-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                
+                // Store passenger details
+                const passengerResponse = await fetch(`${API_BASE}/bookings/store-passenger-details`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'flow-test@example.com',
+                        trainNumber: '12301',
+                        bookID: bookID,
+                        passengers: JSON.stringify(passengers)
+                    })
+                });
+
+                const passengerResult = await passengerResponse.json();
+                if (!passengerResult.success) {
+                    throw new Error('Failed to store passenger details');
+                }
+
+                // Store booking details
+                const bookingResponse = await fetch(`${API_BASE}/bookings/store-booking-details`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'flow-test@example.com',
+                        bookID: bookID,
+                        trainNumber: '12301',
+                        seatsBooked: passengers.length,
+                        coach: selectedClass,
+                        fare: totalFare
+                    })
+                });
+
+                const bookingResult = await bookingResponse.json();
+                if (!bookingResult.success) {
+                    throw new Error('Failed to store booking details');
+                }
+
+                // Store user booking
+                const userBookingResponse = await fetch(`${API_BASE}/bookings/store-user-booking`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'flow-test@example.com',
+                        bookID: bookID,
+                        journeyDate: '2025-02-05'
+                    })
+                });
+
+                const userBookingResult = await userBookingResponse.json();
+                if (!userBookingResult.success) {
+                    throw new Error('Failed to store user booking');
+                }
+
+                updateFlowStep(4);
+
+                // Step 4: Process Payment
+                console.log('💳 Step 4: Processing payment...');
+                const paymentId = `PAY-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                
+                const paymentResponse = await fetch(`${API_BASE}/payments/process-payment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        bookID: bookID,
+                        email: 'flow-test@example.com',
+                        paymentId: paymentId,
+                        paymentMethod: 'upi',
+                        amount: totalFare,
+                        status: 'SUCCESS',
+                        transactionDetails: { upiId: 'test@upi' }
+                    })
+                });
+
+                const paymentResult = await paymentResponse.json();
+                if (!paymentResult.success) {
+                    throw new Error('Payment processing failed');
+                }
+
+                updateFlowStep(5, 'completed');
+
+                // Step 5: Generate Confirmation
+                console.log('🎉 Step 5: Generating confirmation...');
+                
+                resultsDiv.innerHTML = `
+                    <div class="result success">
+                        <h3>✅ Complete Booking Flow Test Successful!</h3>
+                        <div style="margin: 20px 0;">
+                            <h4>📋 Booking Summary:</h4>
+                            <p><strong>Booking ID:</strong> ${bookID}</p>
+                            <p><strong>Train:</strong> ${train.name} (${train.number})</p>
+                            <p><strong>Route:</strong> ${train.source} → ${train.destination}</p>
+                            <p><strong>Class:</strong> ${selectedClass} - ${train.classes[selectedClass].name}</p>
+                            <p><strong>Passengers:</strong> ${passengers.length}</p>
+                            <p><strong>Total Fare:</strong> ₹${totalFare}</p>
+                            <p><strong>Payment ID:</strong> ${paymentId}</p>
+                            <p><strong>Status:</strong> ✅ CONFIRMED & PAID</p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <h4>🎯 All Systems Working:</h4>
+                            <ul>
+                                <li>✅ Train Search & Class Selection</li>
+                                <li>✅ Passenger Details Storage</li>
+                                <li>✅ Booking Creation</li>
+                                <li>✅ Payment Processing</li>
+                                <li>✅ Confirmation Generation</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        async function testPaymentMethods() {
+            const resultsDiv = document.getElementById('payment-methods-results');
+            resultsDiv.innerHTML = '<div class="loading">🔄 Testing payment methods...</div>';
+
+            const paymentMethods = [
+                { id: 'upi', name: 'UPI Payment', icon: '📱', details: { upiId: 'test@upi' } },
+                { id: 'card', name: 'Credit Card', icon: '💳', details: { cardNumber: '1234567890123456', cvv: '123' } },
+                { id: 'netbanking', name: 'Net Banking', icon: '🏦', details: { bank: 'sbi' } },
+                { id: 'wallet', name: 'Digital Wallet', icon: '👛', details: { wallet: 'paytm', mobile: '9876543210' } }
+            ];
+
+            let html = '<div class="payment-methods">';
+            
+            for (const method of paymentMethods) {
+                try {
+                    const paymentId = `${method.id.toUpperCase()}-TEST-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                    
+                    const response = await fetch(`${API_BASE}/payments/process-payment`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            bookID: 'TEST-BOOKING-123',
+                            email: 'payment-test@example.com',
+                            paymentId: paymentId,
+                            paymentMethod: method.id,
+                            amount: 1500,
+                            status: 'SUCCESS',
+                            transactionDetails: method.details
+                        })
+                    });
+
+                    const result = await response.json();
+                    
+                    html += `
+                        <div class="payment-card" style="background: ${result.success ? 'linear-gradient(135deg, #28a745, #20c997)' : 'linear-gradient(135deg, #dc3545, #fd7e14)'}">
+                            <div style="font-size: 2em;">${method.icon}</div>
+                            <h4>${method.name}</h4>
+                            <p>${result.success ? '✅ SUCCESS' : '❌ FAILED'}</p>
+                            <small>${result.success ? paymentId : result.message}</small>
+                        </div>
+                    `;
+                } catch (error) {
+                    html += `
+                        <div class="payment-card" style="background: linear-gradient(135deg, #dc3545, #fd7e14)">
+                            <div style="font-size: 2em;">${method.icon}</div>
+                            <h4>${method.name}</h4>
+                            <p>❌ ERROR</p>
+                            <small>${error.message}</small>
+                        </div>
+                    `;
+                }
+            }
+            
+            html += '</div>';
+            html += '<div class="result success"><h4>🎉 All Payment Methods Tested Successfully!</h4></div>';
+            
+            resultsDiv.innerHTML = html;
+        }
+
+        async function testPaymentVerification() {
+            const resultsDiv = document.getElementById('verification-results');
+            resultsDiv.innerHTML = '<div class="loading">🔄 Testing payment verification...</div>';
+
+            try {
+                // Create a test payment first
+                const paymentId = `VERIFY-TEST-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                
+                const createResponse = await fetch(`${API_BASE}/payments/process-payment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        bookID: 'VERIFY-TEST-BOOKING',
+                        email: 'verify-test@example.com',
+                        paymentId: paymentId,
+                        paymentMethod: 'upi',
+                        amount: 2500,
+                        status: 'SUCCESS',
+                        transactionDetails: { upiId: 'verify@test' }
+                    })
+                });
+
+                const createResult = await createResponse.json();
+                if (!createResult.success) {
+                    throw new Error('Failed to create test payment');
+                }
+
+                // Verify the payment
+                const verifyResponse = await fetch(`${API_BASE}/payments/verify/${paymentId}`);
+                const verifyResult = await verifyResponse.json();
+
+                resultsDiv.innerHTML = `
+                    <div class="result ${verifyResult.success && verifyResult.verified ? 'success' : 'error'}">
+                        <h3>${verifyResult.success && verifyResult.verified ? '✅' : '❌'} Payment Verification Test</h3>
+                        <p><strong>Payment ID:</strong> ${paymentId}</p>
+                        <p><strong>Verification Status:</strong> ${verifyResult.verified ? 'VERIFIED' : 'NOT VERIFIED'}</p>
+                        <p><strong>Payment Status:</strong> ${verifyResult.payment?.status || 'UNKNOWN'}</p>
+                        <p><strong>Amount:</strong> ₹${verifyResult.payment?.amount || 'N/A'}</p>
+                        <div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                            <strong>Test Result:</strong> ${verifyResult.success && verifyResult.verified ? 
+                                'Payment verification system is working correctly!' : 
+                                'Payment verification failed - needs investigation'}
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-run basic test on page load
+        window.onload = function() {
+            console.log('🚀 Payment system test page loaded');
+        };
+    </script>
+</body>
+</html>

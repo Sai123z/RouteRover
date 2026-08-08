@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual AI Assistant Test - Route Rover</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4CAF50;
+        }
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .language-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .status.working { background: #4CAF50; }
+        .status.enhanced { background: #2196F3; }
+        .status.new { background: #FF9800; }
+        .btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .voice-commands {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .command-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .command-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #FFC107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Multilingual AI Assistant Test - Route Rover</h1>
+        <p>Testing the enhanced AI assistant with Hindi, Marathi, and English language support for voice recognition and text-to-speech.</p>
+
+        <div class="test-section">
+            <h2>🎯 Multilingual Features Overview</h2>
+            <div class="language-grid">
+                <div class="language-card">
+                    <h3>🇺🇸 English Support</h3>
+                    <span class="status working">WORKING</span>
+                    <p>• Full voice recognition support</p>
+                    <p>• Natural text-to-speech</p>
+                    <p>• Complete AI responses</p>
+                    <p>• All features available</p>
+                </div>
+                
+                <div class="language-card">
+                    <h3>🇮🇳 हिंदी समर्थन</h3>
+                    <span class="status new">NEW</span>
+                    <p>• आवाज़ पहचान समर्थन</p>
+                    <p>• हिंदी में AI जवाब</p>
+                    <p>• टेक्स्ट-टू-स्पीच</p>
+                    <p>• संपूर्ण यात्रा सहायता</p>
+                </div>
+                
+                <div class="language-card">
+                    <h3>🇮🇳 मराठी समर्थन</h3>
+                    <span class="status new">NEW</span>
+                    <p>• आवाज ओळख समर्थन</p>
+                    <p>• मराठीत AI उत्तरे</p>
+                    <p>• मजकूर-ते-भाषण</p>
+                    <p>• संपूर्ण प्रवास सहाय्य</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎤 Voice Commands by Language</h2>
+            
+            <div class="voice-commands">
+                <h3>🇺🇸 English Voice Commands</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <h4>Train Queries</h4>
+                        <p>"Check train 12307"</p>
+                        <p>"Train status for 12301"</p>
+                        <p>"Tell me about train delays"</p>
+                    </div>
+                    <div class="command-item">
+                        <h4>Travel Information</h4>
+                        <p>"Platform information"</p>
+                        <p>"Food options"</p>
+                        <p>"Weather updates"</p>
+                    </div>
+                    <div class="command-item">
+                        <h4>General Help</h4>
+                        <p>"Travel tips"</p>
+                        <p>"Best seat selection"</p>
+                        <p>"Booking help"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="voice-commands">
+                <h3>🇮🇳 हिंदी आवाज़ कमांड</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <h4>ट्रेन की जानकारी</h4>
+                        <p>"ट्रेन 12307 की जांच करें"</p>
+                        <p>"ट्रेन की स्थिति बताएं"</p>
+                        <p>"ट्रेन में देरी के बारे में बताएं"</p>
+                    </div>
+                    <div class="command-item">
+                        <h4>यात्रा जानकारी</h4>
+                        <p>"प्लेटफॉर्म की जानकारी"</p>
+                        <p>"भोजन के विकल्प"</p>
+                        <p>"मौसम अपडेट"</p>
+                    </div>
+                    <div class="command-item">
+                        <h4>सामान्य सहायता</h4>
+                        <p>"यात्रा सुझाव"</p>
+                        <p>"सबसे अच्छी सीट"</p>
+                        <p>"बुकिंग में मदद"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="voice-commands">
+                <h3>🇮🇳 मराठी आवाज कमांड</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <h4>ट्रेन माहिती</h4>
+                        <p>"ट्रेन 12307 तपासा"</p>
+                        <p>"ट्रेनची स्थिती सांगा"</p>
+                        <p>"ट्रेनमध्ये विलंब सांगा"</p>
+                    </div>
+                    <div class="command-item">
+                        <h4>प्रवास माहिती</h4>
+                        <p>"प्लॅटफॉर्म माहिती"</p>
+                        <p>"अन्न पर्याय"</p>
+                        <p>"हवामान अपडेट"</p>
+                    </div>
+                    <div class="command-item">
+                        <h4>सामान्य मदत</h4>
+                        <p>"प्रवास सुझाव"</p>
+                        <p>"सर्वोत्तम जागा"</p>
+                        <p>"बुकिंगमध्ये मदत"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 Testing Instructions</h2>
+            
+            <div class="voice-commands">
+                <h3>Step-by-Step Testing</h3>
+                <ol style="font-size: 16px; line-height: 1.6;">
+                    <li><strong>Open AI Assistant:</strong> Navigate to http://localhost:5174/ai-assistant</li>
+                    <li><strong>Select Language:</strong> Click on the language buttons (🇺🇸 English, 🇮🇳 हिंदी, 🇮🇳 मराठी)</li>
+                    <li><strong>Test Voice Recognition:</strong> Click "Voice Input" and speak in selected language</li>
+                    <li><strong>Test Text-to-Speech:</strong> Click "Voice Demo" to hear AI speak in selected language</li>
+                    <li><strong>Test Chat Interface:</strong> Type or speak questions and verify responses in correct language</li>
+                    <li><strong>Test Train Queries:</strong> Ask about train 12307 in different languages</li>
+                    <li><strong>Verify Translations:</strong> Check that UI elements change language correctly</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔗 Quick Access & Testing</h2>
+            <button class="btn" onclick="window.open('http://localhost:5174/ai-assistant', '_blank')">🤖 Open AI Assistant</button>
+            <button class="btn" onclick="testVoiceSupport()">🎤 Test Voice Support</button>
+            <button class="btn" onclick="testMultilingualAPI()">🌐 Test Multilingual API</button>
+            <button class="btn" onclick="demonstrateLanguages()">🗣️ Language Demo</button>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Feature Checklist</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                <div>
+                    <h4>🇺🇸 English Features</h4>
+                    <label><input type="checkbox"> Voice recognition works</label><br>
+                    <label><input type="checkbox"> Text-to-speech clear</label><br>
+                    <label><input type="checkbox"> AI responses accurate</label><br>
+                    <label><input type="checkbox"> UI elements in English</label><br>
+                </div>
+                <div>
+                    <h4>🇮🇳 हिंदी फीचर्स</h4>
+                    <label><input type="checkbox"> आवाज़ पहचान काम करती है</label><br>
+                    <label><input type="checkbox"> हिंदी में बोलना स्पष्ट है</label><br>
+                    <label><input type="checkbox"> AI के जवाब सटीक हैं</label><br>
+                    <label><input type="checkbox"> UI हिंदी में है</label><br>
+                </div>
+                <div>
+                    <h4>🇮🇳 मराठी वैशिष्ट्ये</h4>
+                    <label><input type="checkbox"> आवाज ओळख कार्य करते</label><br>
+                    <label><input type="checkbox"> मराठीत बोलणे स्पष्ट आहे</label><br>
+                    <label><input type="checkbox"> AI ची उत्तरे अचूक आहेत</label><br>
+                    <label><input type="checkbox"> UI मराठीत आहे</label><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Expected AI Responses</h2>
+            <div class="language-grid">
+                <div class="language-card">
+                    <h4>English Response Example</h4>
+                    <p><strong>Query:</strong> "Check train status"</p>
+                    <p><strong>Expected:</strong> "I can help you check train status. Please provide the train number and I'll get real-time information for you."</p>
+                </div>
+                <div class="language-card">
+                    <h4>हिंदी उत्तर उदाहरण</h4>
+                    <p><strong>प्रश्न:</strong> "ट्रेन की स्थिति जांचें"</p>
+                    <p><strong>अपेक्षित:</strong> "मैं आपकी ट्रेन की स्थिति जांचने में मदद कर सकता हूं। कृपया ट्रेन नंबर बताएं और मैं आपको रियल-टाइम जानकारी दूंगा।"</p>
+                </div>
+                <div class="language-card">
+                    <h4>मराठी उत्तर उदाहरण</h4>
+                    <p><strong>प्रश्न:</strong> "ट्रेनची स्थिती तपासा"</p>
+                    <p><strong>अपेक्षित:</strong> "मी तुमच्या ट्रेनची स्थिती तपासण्यात मदत करू शकतो. कृपया ट्रेन नंबर सांगा आणि मी तुम्हाला रियल-टाइम माहिती देईन."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testVoiceSupport() {
+            const languages = ['en-US', 'hi-IN', 'mr-IN'];
+            let supportedLangs = [];
+            
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                supportedLangs.push('Voice Recognition: ✅');
+            } else {
+                supportedLangs.push('Voice Recognition: ❌');
+            }
+
+            if ('speechSynthesis' in window) {
+                supportedLangs.push('Text-to-Speech: ✅');
+                
+                // Test each language
+                languages.forEach(lang => {
+                    const testText = lang === 'hi-IN' ? 'नमस्ते, मैं आपका AI सहायक हूं' :
+                                   lang === 'mr-IN' ? 'नमस्कार, मी तुमचा AI सहाय्यक आहे' :
+                                   'Hello, I am your AI assistant';
+                    
+                    const utterance = new SpeechSynthesisUtterance(testText);
+                    utterance.lang = lang;
+                    speechSynthesis.speak(utterance);
+                });
+            } else {
+                supportedLangs.push('Text-to-Speech: ❌');
+            }
+
+            alert('Voice Support Test Results:\n' + supportedLangs.join('\n'));
+        }
+
+        async function testMultilingualAPI() {
+            const languages = ['en', 'hi-IN', 'mr-IN'];
+            const results = [];
+
+            for (const lang of languages) {
+                try {
+                    const response = await fetch(`http://localhost:5000/api/ai/location-guidance?trainNumber=12307&language=${lang}`);
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        results.push(`${lang}: ✅ Working`);
+                    } else {
+                        results.push(`${lang}: ❌ Error - ${data.message}`);
+                    }
+                } catch (error) {
+                    results.push(`${lang}: ❌ Connection Error`);
+                }
+            }
+
+            alert('Multilingual API Test Results:\n' + results.join('\n'));
+        }
+
+        function demonstrateLanguages() {
+            if ('speechSynthesis' in window) {
+                const demos = [
+                    { lang: 'en-US', text: 'Welcome to Route Rover AI Assistant. I can help you with train information in multiple languages.' },
+                    { lang: 'hi-IN', text: 'रूट रोवर AI असिस्टेंट में आपका स्वागत है। मैं कई भाषाओं में ट्रेन की जानकारी में आपकी मदद कर सकता हूं।' },
+                    { lang: 'mr-IN', text: 'रूट रोवर AI असिस्टंटमध्ये तुमचे स्वागत आहे. मी अनेक भाषांमध्ये ट्रेन माहितीसाठी तुमची मदत करू शकतो.' }
+                ];
+
+                demos.forEach((demo, index) => {
+                    setTimeout(() => {
+                        const utterance = new SpeechSynthesisUtterance(demo.text);
+                        utterance.lang = demo.lang;
+                        utterance.rate = 0.8;
+                        speechSynthesis.speak(utterance);
+                    }, index * 8000);
+                });
+            } else {
+                alert('Text-to-speech not supported in this browser.');
+            }
+        }
+
+        // Auto-test on page load
+        window.onload = function() {
+            console.log('🌐 Multilingual AI Assistant Test Page Loaded');
+            console.log('Frontend: http://localhost:5174');
+            console.log('AI Assistant: http://localhost:5174/ai-assistant');
+            console.log('Supported Languages: English, Hindi, Marathi');
+        };
+    </script>
+</body>
+</html>

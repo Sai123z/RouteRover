@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Reservation System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, button { padding: 10px; margin: 5px 0; width: 100%; max-width: 300px; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin: 20px 0; padding: 15px; border: 1px solid #ddd; background: #f9f9f9; }
+        .error { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎫 Test Reservation System</h1>
+        
+        <h2>1. Test Train Search</h2>
+        <form id="searchForm">
+            <div class="form-group">
+                <label for="from">From Station:</label>
+                <input type="text" id="from" value="Belagavi" required>
+            </div>
+            <div class="form-group">
+                <label for="to">To Station:</label>
+                <input type="text" id="to" value="Mumbai" required>
+            </div>
+            <button type="submit">🔍 Search Trains</button>
+        </form>
+        <div id="searchResult"></div>
+        
+        <h2>2. Test Train Details</h2>
+        <form id="trainForm">
+            <div class="form-group">
+                <label for="trainNumber">Train Number:</label>
+                <input type="text" id="trainNumber" value="12307" required>
+            </div>
+            <button type="submit">🚂 Get Train Details</button>
+        </form>
+        <div id="trainResult"></div>
+        
+        <h2>3. Test Booking</h2>
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="test@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="bookTrainNumber">Train Number:</label>
+                <input type="text" id="bookTrainNumber" value="12307" required>
+            </div>
+            <div class="form-group">
+                <label for="passengerName">Passenger Name:</label>
+                <input type="text" id="passengerName" value="John Doe" required>
+            </div>
+            <div class="form-group">
+                <label for="passengerAge">Age:</label>
+                <input type="number" id="passengerAge" value="30" required>
+            </div>
+            <div class="form-group">
+                <label for="passengerGender">Gender:</label>
+                <select id="passengerGender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="coach">Class:</label>
+                <select id="coach" required>
+                    <option value="2A">2A (Second AC)</option>
+                    <option value="3A">3A (Third AC)</option>
+                    <option value="SL">SL (Sleeper)</option>
+                    <option value="General">General</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="journeyDate">Journey Date:</label>
+                <input type="date" id="journeyDate" value="2025-12-30" required>
+            </div>
+            <button type="submit">🎫 Test Booking</button>
+        </form>
+        <div id="bookingResult"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000';
+
+        // Test train search
+        document.getElementById('searchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const resultDiv = document.getElementById('searchResult');
+            
+            try {
+                resultDiv.innerHTML = '<p>Searching...</p>';
+                const response = await fetch(`${API_BASE}/api/trains?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&searchOption=SEARCH%20by%20station`);
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Found ${data.data.length} trains:</h3>
+                            ${data.data.map(train => `
+                                <p><strong>${train.number}</strong>: ${train.name}<br>
+                                Route: ${train.source || train.origin} → ${train.destination}<br>
+                                Fare: ₹${train.fare}, Available Seats: ${train.available_seats}</p>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="result error">❌ No trains found: ${data.message || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        });
+
+        // Test train details
+        document.getElementById('trainForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const trainNumber = document.getElementById('trainNumber').value;
+            const resultDiv = document.getElementById('trainResult');
+            
+            try {
+                resultDiv.innerHTML = '<p>Loading train details...</p>';
+                const response = await fetch(`${API_BASE}/api/trains?number=${encodeURIComponent(trainNumber)}&searchOption=SEARCH%20by%20number`);
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    const train = data.data[0];
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Train Details:</h3>
+                            <p><strong>Number:</strong> ${train.number}</p>
+                            <p><strong>Name:</strong> ${train.name}</p>
+                            <p><strong>Route:</strong> ${train.source || train.origin} → ${train.destination}</p>
+                            <p><strong>Departure:</strong> ${train.departure}</p>
+                            <p><strong>Arrival:</strong> ${train.arrival}</p>
+                            <p><strong>Fare:</strong> ₹${train.fare}</p>
+                            <p><strong>Available Seats:</strong> ${train.available_seats}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="result error">❌ Train not found: ${data.message || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        });
+
+        // Test booking
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultDiv = document.getElementById('bookingResult');
+            
+            const bookingData = {
+                email: document.getElementById('email').value,
+                trainNumber: document.getElementById('bookTrainNumber').value,
+                passengers: [{
+                    name: document.getElementById('passengerName').value,
+                    age: parseInt(document.getElementById('passengerAge').value),
+                    gender: document.getElementById('passengerGender').value,
+                    coach: document.getElementById('coach').value
+                }],
+                coach: document.getElementById('coach').value,
+                journeyDate: document.getElementById('journeyDate').value
+            };
+            
+            try {
+                resultDiv.innerHTML = '<p>Processing booking...</p>';
+                const bookID = `TEST-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                
+                // Step 1: Store passenger details
+                const passengerResponse = await fetch(`${API_BASE}/api/bookings/store-passenger-details`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: bookingData.email,
+                        trainNumber: bookingData.trainNumber,
+                        bookID: bookID,
+                        passengers: JSON.stringify(bookingData.passengers)
+                    })
+                });
+                
+                const passengerResult = await passengerResponse.json();
+                if (!passengerResult.success) {
+                    throw new Error(passengerResult.message);
+                }
+                
+                // Step 2: Store booking details
+                const bookingResponse = await fetch(`${API_BASE}/api/bookings/store-booking-details`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: bookingData.email,
+                        bookID: bookID,
+                        trainNumber: bookingData.trainNumber,
+                        seatsBooked: bookingData.passengers.length,
+                        coach: bookingData.coach
+                    })
+                });
+                
+                const bookingResult = await bookingResponse.json();
+                if (!bookingResult.success) {
+                    throw new Error(bookingResult.message);
+                }
+                
+                // Step 3: Store user booking
+                const userBookingResponse = await fetch(`${API_BASE}/api/bookings/store-user-booking`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: bookingData.email,
+                        bookID: bookID,
+                        journeyDate: bookingData.journeyDate
+                    })
+                });
+                
+                const userBookingResult = await userBookingResponse.json();
+                if (!userBookingResult.success) {
+                    throw new Error(userBookingResult.message);
+                }
+                
+                resultDiv.innerHTML = `
+                    <div class="result success">
+                        <h3>✅ Booking Successful!</h3>
+                        <p><strong>Booking ID:</strong> ${bookID}</p>
+                        <p><strong>Train:</strong> ${bookingData.trainNumber}</p>
+                        <p><strong>Passenger:</strong> ${bookingData.passengers[0].name}</p>
+                        <p><strong>Class:</strong> ${bookingData.coach}</p>
+                        <p><strong>Journey Date:</strong> ${bookingData.journeyDate}</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Booking failed: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
